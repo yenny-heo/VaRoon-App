@@ -50,10 +50,11 @@ const styles = StyleSheet.create({
   },
   loginButton:{
     marginTop: 60,
-    width: 100,
+    width: 130,
     height: 50,
     backgroundColor: '#5276F6',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    borderRadius: 10
   }
 });
