@@ -5,7 +5,7 @@ import Main from './Main.js';
 var id, password;
 export default class extends React.Component{
   state = {
-    login: false
+    login: true
   };
 
   render(){

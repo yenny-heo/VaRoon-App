@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, StatusBar, Dimensions, Platform,ScrollView} from 'react-native';
+import EyemovementChart from './EyemovementChart';
 
 const {width, height} = Dimensions.get("window");
 
@@ -10,6 +11,7 @@ export default class Main extends React.Component{
                 <StatusBar barStyle="light-content"></StatusBar>
                 <Text style={styles.title}>Chart</Text>
                 <ScrollView style={styles.chart}>
+                    <EyemovementChart></EyemovementChart>
                 </ScrollView>
             </View>
         );
@@ -27,7 +29,7 @@ const styles = StyleSheet.create({
         fontSize: 40,
         marginTop: 50,
         fontWeight: "200",
-        marginBottom: 20
+        marginBottom: 10
     },
     chart:{
         backgroundColor: "white",
