@@ -1,17 +1,18 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { StyleSheet, Text, View, StatusBar, Image, TextInput, TouchableOpacity, Alert } from 'react-native';
 import Main from './Main.js';
 
 var id, password;
 export default class extends React.Component{
   state = {
-    login: true
+    login: false
   };
 
   render(){
     return (
       this.state.login ? <Main></Main> :
         <View style={styles.container}>
+          <StatusBar barStyle="dark-content"></StatusBar>
           <View style={styles.halfContainer1}>
             <Image style={styles.logo} source={require('./assets/VaRoon.png')}></Image>
           </View>
@@ -42,8 +43,23 @@ export default class extends React.Component{
       Alert.alert("Enter your ID and password")
     }
     else{
-      //로그인 성공시
-      this.setState({login: true});
+      fetch('http://15.164.220.109/Api/Home/Login',{
+        method: 'POST',
+        headers:{
+          'Accept': 'application/hal+json',
+          'Content-Type':'application/json',
+        },
+        body: JSON.stringify({
+          id: id,
+          pw: password
+        }),
+      })
+      .then(json => {
+        if(json.ok)  this.setState({login: true}); //로그인 성공
+        else Alert.alert("ID or Password is do not match") //로그인 실패
+    })
+      .catch(err => console.log(err));
+
     }
   }
 }
