@@ -5,7 +5,7 @@ import Main from './Main.js';
 var id, password;
 export default class extends React.Component{
   state = {
-    login: false
+    login: true
   };
 
   render(){
@@ -31,7 +31,7 @@ export default class extends React.Component{
               onChangeText={text => password = text}
             ></TextInput>
             <TouchableOpacity style={styles.loginButton} onPressOut={this._loginAuth}>
-              <Text style={{ color: '#fff' }}>LOGIN</Text>
+              <Text style={{ color: '#fff' }}>LOG IN</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -82,6 +82,7 @@ const styles = StyleSheet.create({
   logo: {
     width: 150,
     height: 150,
+    marginBottom: -100,
     resizeMode: 'contain'
 
   },
@@ -96,9 +97,9 @@ const styles = StyleSheet.create({
   },
   loginButton:{
     marginTop: 50,
-    width: 130,
+    width: 300,
     height: 50,
-    backgroundColor: '#5276F6',
+    backgroundColor: '#698aff',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10

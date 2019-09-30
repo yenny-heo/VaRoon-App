@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, StatusBar, Dimensions, Platform,ScrollView} from 'react-native';
-import EyemovementChart from './EyemovementChart';
+import TabNavigation from './TabNavigation';
 
 const {width, height} = Dimensions.get("window");
 
@@ -13,7 +13,7 @@ export default class Main extends React.Component{
                     <Text style={styles.title}>Chart</Text>
                 </View>
                 <View style={styles.chart}>
-                    <EyemovementChart></EyemovementChart>
+                    <TabNavigation></TabNavigation>
                 </View>
             </View>
         );
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     navBar:{
-        height: 100,
+        height: 90,
         width: width,
         backgroundColor: '#5276F6',
         alignItems: 'center',
@@ -44,13 +44,12 @@ const styles = StyleSheet.create({
                 elevation: 10
             }
         })
-        
     },
     title:{
         flex: 1,
         color: 'white',
-        fontSize: 40,
-        marginTop: 40,
+        fontSize: 28,
+        marginTop: 45,
         fontWeight: "200",
         marginBottom: 10,
         
