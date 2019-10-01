@@ -1,53 +1,67 @@
 import React from 'react';
-import { createAppContainer } from 'react-navigation';
+import { createAppContainer, } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import EyemovementChart from './chart/EyemovementChart';
 import StrabismusAngleChart from './chart/StrabusmusAngleChart';
 import FocusChart from './chart/FocusChart';
-
-import { Entypo } from '@expo/vector-icons'
+import { AntDesign } from '@expo/vector-icons'
 
 const TabNavigation = createBottomTabNavigator({
-    Chart1: {
+    EyeMovement: {
         screen: EyemovementChart,
         navigationOptions: {
-            tabBarIcon: ({tintColor}) => <Entypo
-                name="circular-graph"
+            title: "안구운동",
+            tabBarIcon: ({tintColor}) => <AntDesign
+                name="areachart"
                 color= {tintColor}
-                size={38}
-            ></Entypo>
+                size={35}
+            ></AntDesign>
         }
 
     },
-    Chart2: {
+    StrabismusAngle: {
         screen: StrabismusAngleChart,
         navigationOptions: {
-            tabBarIcon: ({tintColor}) => <Entypo
-                name="line-graph"
+            title: "사시각",
+            tabBarIcon: ({tintColor}) => <AntDesign
+                name="dotchart"
                 color = {tintColor}
                 size={36}
-            ></Entypo>
+            ></AntDesign>
+          // tabBarOnPress: ({navigation, defaultHandler}) =>  {
+         //       App.setState({login:true});
+          //      defaultHandler();
+           // }
+
+            
         }
     },
-    Chart3: {
+    Focus: {
         screen: FocusChart,
         navigationOptions: {
-            tabBarIcon: ({tintColor}) => <Entypo
-                name="bar-graph"
+            title: "집중도",
+            tabBarIcon: ({tintColor}) => <AntDesign
+                name="barschart"
                 color = {tintColor}
                 size={36}
-            ></Entypo>
+            ></AntDesign>
         }
     },
 
 },
     {
         tabBarOptions: {
-            showLabel: false,
             activeTintColor:'#3661f7',
-            inactiveTintColor:'#c2cffc'
-
-        }
+            inactiveTintColor:'#A8BAFA',
+            style:{
+                height: 80,
+                backgroundColor: "#f5f5f5"
+            },
+            labelStyle:{
+                fontSize: 12,
+                marginTop: -20
+            }
+        },
     }
 );
 

@@ -7,10 +7,10 @@ export default class EyemovementChart extends React.Component {
         return (
             <View style={styles.container}>
                 <Text style={styles.chartTitle}> Eye Movement </Text>
-                <View style={styles.container3}>
+                <View style={styles.container2}>
                     <Text style={styles.date}> 📆 측정일 2019.09.23 </Text>
                 </View>
-                <View style={styles.container2}>
+                <View style={styles.container3}>
                     <View style={{ marginRight: -60 }}>
                         <VictoryChart polar
                             theme={VictoryTheme.material}
@@ -64,7 +64,7 @@ export default class EyemovementChart extends React.Component {
 
                     </VictoryChart>
                 </View>
-                <View style={styles.container2}>
+                <View style={styles.container3}>
                     <Text style={styles.chartContents}> left eye </Text>
                     <Text style={styles.chartContents}> right eye </Text>
                 </View>
@@ -80,16 +80,16 @@ const styles = StyleSheet.create({
         alignItems: 'center',
 
     },
-    container2: {
-        flexDirection: 'row',
-        marginTop: -65,
-    },
-    container3:{
+    container2:{
         width: '100%',
         marginTop: 70,
         marginLeft: 30,
         alignItems: 'flex-start'
         
+    },
+    container3: {
+        flexDirection: 'row',
+        marginTop: -65
     },
     chartTitle: {
         fontSize: 30,

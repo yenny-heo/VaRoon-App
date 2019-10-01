@@ -5,7 +5,7 @@ import Main from './Main.js';
 var id, password;
 export default class extends React.Component{
   state = {
-    login: true
+    login: false
   };
 
   render(){
@@ -46,7 +46,7 @@ export default class extends React.Component{
       fetch('http://15.164.220.109/Api/Home/Login',{
         method: 'POST',
         headers:{
-          'Accept': 'application/hal+json',
+          'Accept': 'application/json',
           'Content-Type':'application/json',
         },
         body: JSON.stringify({
@@ -55,8 +55,11 @@ export default class extends React.Component{
         }),
       })
       .then(json => {
-        if(json.ok)  this.setState({login: true}); //로그인 성공
-        else Alert.alert("ID or Password is do not match") //로그인 실패
+        if(json.ok) {
+          console.log(json.text());
+           this.setState({login: true});
+         } //로그인 성공
+        else { console.log(json); Alert.alert("ID or Password is do not match") }//로그인 실패
     })
       .catch(err => console.log(err));
 
