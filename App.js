@@ -1,16 +1,18 @@
 import React from 'react';
 import { StyleSheet, Text, View, StatusBar, Image, TextInput, TouchableOpacity, Alert } from 'react-native';
+import axios from 'axios';
 import Main from './Main.js';
 
 var id, password;
 export default class extends React.Component{
   state = {
-    login: false
+    login: false,
+    token: ''
   };
 
   render(){
     return (
-      this.state.login ? <Main></Main> :
+      this.state.login ? <Main token = {this.state.token}></Main> :
         <View style={styles.container}>
           <StatusBar barStyle="dark-content"></StatusBar>
           <View style={styles.halfContainer1}>
@@ -43,26 +45,43 @@ export default class extends React.Component{
       Alert.alert("Enter your ID and password")
     }
     else{
-      fetch('http://15.164.220.109/Api/Home/Login',{
-        method: 'POST',
+    //   fetch('http://15.164.220.109/Api/Home/Login',{
+    //     method: 'POST',
+    //     headers:{
+    //       'Accept': 'application/json',
+    //       'Content-Type':'application/json',
+    //     },
+    //     body: JSON.stringify({
+    //       id: id,
+    //       pw: password
+    //     }),
+    //   })
+    //   .then(json => {
+    //     if(json.ok) {
+    //       console.log(json.json());
+    //        this.setState({login: true});
+    //      } //로그인 성공
+    //     else { console.log(json); Alert.alert("ID or Password is do not match") }//로그인 실패
+    // })
+    //   .catch(err => console.log(err));
+      axios({
+        method: 'post',
+        url: 'http://15.164.220.109/Api/Home/Login',
         headers:{
           'Accept': 'application/json',
           'Content-Type':'application/json',
         },
-        body: JSON.stringify({
+        data:{
           id: id,
           pw: password
-        }),
+        }
       })
-      .then(json => {
-        if(json.ok) {
-          console.log(json.text());
-           this.setState({login: true});
-         } //로그인 성공
-        else { console.log(json); Alert.alert("ID or Password is do not match") }//로그인 실패
-    })
-      .catch(err => console.log(err));
-
+      .then(json =>{
+        if(json.status == 200){
+          this.setState({login: true, token: json.data.token});
+        } else Alert.alert("ID or Password is do not match")
+      })
+      .catch(err => {console.log("failed",err)});
     }
   }
 }

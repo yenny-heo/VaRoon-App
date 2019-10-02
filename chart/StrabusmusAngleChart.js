@@ -3,6 +3,7 @@ import { StyleSheet, View, Text } from 'react-native';
 import { VictoryChart, VictoryTheme, VictoryScatter } from 'victory-native';
 
 export default class StrabismusAngleChart extends React.Component {
+
     render() {
         return (
             <View style={styles.container}>
@@ -61,7 +62,6 @@ export default class StrabismusAngleChart extends React.Component {
         );
     }
 }
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,

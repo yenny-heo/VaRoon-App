@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, StatusBar, Dimensions, Platform,ScrollView} from 'react-native';
+import { StyleSheet, Text, View, StatusBar, Dimensions, Platform } from 'react-native';
 import TabNavigation from './TabNavigation';
 
 const {width, height} = Dimensions.get("window");
@@ -13,7 +13,7 @@ export default class Main extends React.Component{
                     <Text style={styles.title}>Chart</Text>
                 </View>
                 <View style={styles.chart}>
-                    <TabNavigation></TabNavigation>
+                    <TabNavigation screenProps = {{token: this.props.token}}></TabNavigation>
                 </View>
             </View>
         );
