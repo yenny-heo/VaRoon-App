@@ -38,7 +38,7 @@ export default class EyemovementChart extends React.Component {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
-                    'X-AUTH-TOKEN': this.props.screenProps.token
+                    'X-AUTH-TOKEN': this.props.screenProps.data.token
                 }
             })
                 .then(json => { return json.data })
@@ -57,35 +57,40 @@ export default class EyemovementChart extends React.Component {
     }
 
     _valueChange = (itemValue, itemIndex) => {
-        this.setState({ choosenDate: itemValue, choosenIndex: itemIndex });
-        const { leftRange, rightRange } = this.state.data[itemIndex];
-        this.setState({
-            LRight: leftRange.down,
-            LRightUp: leftRange.rightUp,
-            LUp: leftRange.up,
-            LLeftUp: leftRange.leftUp,
-            LLeft: leftRange.left,
-            LLeftDown: leftRange.leftDown,
-            LDown: leftRange.down,
-            LRightDown: leftRange.rightDown,
+        if (itemIndex != 0) {
+            this.setState({ choosenDate: itemValue, choosenIndex: itemIndex - 1 });
+            const { leftRange, rightRange } = this.state.data[itemIndex - 1];
+            this.setState({
+                LRight: leftRange.right,
+                LRightUp: leftRange.rightUp,
+                LUp: leftRange.up,
+                LLeftUp: leftRange.leftUp,
+                LLeft: leftRange.left,
+                LLeftDown: leftRange.leftDown,
+                LDown: leftRange.down,
+                LRightDown: leftRange.rightDown,
 
-            RRight: rightRange.down,
-            RRightUp: rightRange.rightUp,
-            RUp: rightRange.up,
-            RLeftUp: rightRange.leftUp,
-            RLeft: rightRange.left,
-            RLeftDown: rightRange.leftDown,
-            RDown: rightRange.down,
-            RRightDown: rightRange.rightDown,
+                RRight: rightRange.right,
+                RRightUp: rightRange.rightUp,
+                RUp: rightRange.up,
+                RLeftUp: rightRange.leftUp,
+                RLeft: rightRange.left,
+                RLeftDown: rightRange.leftDown,
+                RDown: rightRange.down,
+                RRightDown: rightRange.rightDown,
 
-        })
+            })
+        }
     }
 
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.chartTitle}> Eye Movement </Text>
-                <View style={styles.container3}>
+                <Text style={styles.chartTitle}>
+                    <Text style={{ fontWeight: 'bold' }}>{this.props.screenProps.data.name}</Text>
+                    <Text>님의 안구운동차트</Text>
+                </Text>
+                <View style={styles.container2}>
                     <View style={{ marginRight: -60 }}>
                         <VictoryChart polar
                             theme={VictoryTheme.material}
@@ -140,17 +145,19 @@ export default class EyemovementChart extends React.Component {
                     </VictoryChart>
                 </View>
                 <View style={styles.container3}>
-                    <Text style={styles.chartContents}> left eye </Text>
-                    <Text style={styles.chartContents}> right eye </Text>
+                    <Text style={styles.chartContents}> 좌안 </Text>
+                    <Text style={styles.chartContents}> 우안 </Text>
                 </View>
-                <View style={styles.container2}>
+                <View style={styles.container4}>
                     {this.state.data ?
-                        <Picker style={styles.pickerStyle}
+                        <Picker style={styles.pickerStyle} itemStyle={styles.itemStyle}
                             selectedValue={this.state.choosenDate}
                             onValueChange={(itemValue, itemIndex) => this._valueChange(itemValue, itemIndex)}>
+
+                            <Picker.Item label='측정 날짜' value='' />
                             {this._renderDates()}
                         </Picker>
-                        : <Text>Loading</Text>}
+                        : <Text>Date Loading</Text>}
                 </View>
             </View>
         );
@@ -163,35 +170,36 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     container2: {
-        width: '100%',
-        alignItems: 'center'
+        flexDirection: 'row',
+        marginTop: -50
     },
     container3: {
         flexDirection: 'row',
-        marginTop: -65
+        marginTop: -70,
+    },
+    container4: {
+        width: '100%',
+        alignItems: 'center',
+        marginTop: 40
     },
     chartTitle: {
-        fontSize: 30,
-        color: "#2741a1",
-        fontWeight: "300",
-        marginTop: 40,
+        fontSize: 25,
+        fontWeight: "200",
+        marginTop: 60,
     },
     chartContents: {
         fontSize: 20,
-        color: "#5276F6",
+        color: "#2e2e2e",
         fontWeight: "300",
-        marginLeft: 55,
-        marginRight: 55,
-    },
-    date: {
-        fontSize: 15,
-        color: "#5276F6",
-        fontWeight: "500"
+        marginLeft: 70,
+        marginRight: 70,
     },
     pickerStyle: {
-        height: 150,
+        height: 60,
         width: 200,
-        color: '#5276F6',
         justifyContent: 'center',
+    },
+    itemStyle: {
+        height: 60,
     }
 })

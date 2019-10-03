@@ -51,14 +51,14 @@ const TabNavigation = createBottomTabNavigator({
 },
     {
         tabBarOptions: {
-            activeTintColor:'#3661f7',
-            inactiveTintColor:'#A8BAFA',
+            activeTintColor:'#3b66ff',
+            inactiveTintColor:'#828282',
             style:{
                 height: 80,
                 backgroundColor: "#f5f5f5"
             },
             labelStyle:{
-                fontSize: 12,
+                fontSize: 15,
                 marginTop: -20
             }
         },

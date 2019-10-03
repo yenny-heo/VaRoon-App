@@ -7,16 +7,17 @@ var id, password;
 export default class extends React.Component{
   state = {
     login: false,
-    token: ''
+    token: '',
+    name: ''
   };
 
   render(){
     return (
-      this.state.login ? <Main token = {this.state.token}></Main> :
+      this.state.login ? <Main data = {this.state.data}></Main> :
         <View style={styles.container}>
           <StatusBar barStyle="dark-content"></StatusBar>
           <View style={styles.halfContainer1}>
-            <Image style={styles.logo} source={require('./assets/VaRoon.png')}></Image>
+            <Image style={styles.logo} source={require('./assets/logo_column.png')}></Image>
           </View>
           <View style={styles.halfContainer2}>
             <TextInput style={styles.input}
@@ -45,25 +46,6 @@ export default class extends React.Component{
       Alert.alert("Enter your ID and password")
     }
     else{
-    //   fetch('http://15.164.220.109/Api/Home/Login',{
-    //     method: 'POST',
-    //     headers:{
-    //       'Accept': 'application/json',
-    //       'Content-Type':'application/json',
-    //     },
-    //     body: JSON.stringify({
-    //       id: id,
-    //       pw: password
-    //     }),
-    //   })
-    //   .then(json => {
-    //     if(json.ok) {
-    //       console.log(json.json());
-    //        this.setState({login: true});
-    //      } //로그인 성공
-    //     else { console.log(json); Alert.alert("ID or Password is do not match") }//로그인 실패
-    // })
-    //   .catch(err => console.log(err));
       axios({
         method: 'post',
         url: 'http://15.164.220.109/Api/Home/Login',
@@ -78,7 +60,7 @@ export default class extends React.Component{
       })
       .then(json =>{
         if(json.status == 200){
-          this.setState({login: true, token: json.data.token});
+          this.setState({login: true, data: json.data});
         } else Alert.alert("ID or Password is do not match")
       })
       .catch(err => {console.log("failed",err)});

@@ -1,19 +1,19 @@
 import React from 'react';
-import { StyleSheet, Text, View, StatusBar, Dimensions, Platform } from 'react-native';
+import { StyleSheet, Image, View, StatusBar, Dimensions, Platform } from 'react-native';
 import TabNavigation from './TabNavigation';
 
-const {width, height} = Dimensions.get("window");
+const {width} = Dimensions.get("window");
 
 export default class Main extends React.Component{
     render(){
         return(
             <View style={styles.container}>
-                <StatusBar barStyle="light-content"></StatusBar>
+                <StatusBar barStyle="dark-content"></StatusBar>
                 <View style={styles.navBar}>
-                    <Text style={styles.title}>Chart</Text>
+                    <Image style={styles.logo} source={require('./assets/logo_row.png')}></Image>
                 </View>
                 <View style={styles.chart}>
-                    <TabNavigation screenProps = {{token: this.props.token}}></TabNavigation>
+                    <TabNavigation screenProps = {{data: this.props.data}}></TabNavigation>
                 </View>
             </View>
         );
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     navBar:{
         height: 90,
         width: width,
-        backgroundColor: '#5276F6',
+        backgroundColor: '#f5f5f5',
         alignItems: 'center',
         ...Platform.select({
             ios: {
@@ -45,15 +45,12 @@ const styles = StyleSheet.create({
             }
         })
     },
-    title:{
-        flex: 1,
-        color: 'white',
-        fontSize: 28,
-        marginTop: 45,
-        fontWeight: "200",
-        marginBottom: 10,
-        
-    },
+    logo: {
+        width: 130,
+        height: 60,
+        marginTop:30,
+        resizeMode: 'contain'
+      },
     chart:{
         backgroundColor: "white",
         flex: 10,
