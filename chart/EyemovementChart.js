@@ -102,7 +102,7 @@ export default class EyemovementChart extends React.Component {
                             <VictoryPolarAxis />
                             <VictoryArea
                                 style={{
-                                    data: { fill: "#5276F6", fillOpacity: 0.7, strokeWidth: 2 }
+                                    data: { fill: "#4b74ff", fillOpacity: 0.7, strokeWidth: 2 }
                                 }}
                                 data={[
                                     { x: '우', y: this.state.LRight },
@@ -127,6 +127,9 @@ export default class EyemovementChart extends React.Component {
                         />
                         <VictoryPolarAxis />
                         <VictoryArea
+                            style={{
+                                data: { fill: "#4b74ff", fillOpacity: 0.7, strokeWidth: 2 },
+                            }}
                             data={[
                                 { x: '우', y: this.state.RRight },
                                 { x: '우상', y: this.state.RRightUp },
@@ -137,9 +140,6 @@ export default class EyemovementChart extends React.Component {
                                 { x: '하', y: this.state.RDown },
                                 { x: '우하', y: this.state.RRightDown },
                             ]}
-                            style={{
-                                data: { fill: "#5276F6", fillOpacity: 0.7, strokeWidth: 2 },
-                            }}
                         />
 
                     </VictoryChart>

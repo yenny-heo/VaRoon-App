@@ -28,12 +28,6 @@ const TabNavigation = createBottomTabNavigator({
                 color = {tintColor}
                 size={36}
             ></AntDesign>
-          // tabBarOnPress: ({navigation, defaultHandler}) =>  {
-         //       App.setState({login:true});
-          //      defaultHandler();
-           // }
-
-            
         }
     },
     Focus: {
@@ -51,7 +45,7 @@ const TabNavigation = createBottomTabNavigator({
 },
     {
         tabBarOptions: {
-            activeTintColor:'#3b66ff',
+            activeTintColor:'#2e2e2e',
             inactiveTintColor:'#828282',
             style:{
                 height: 80,

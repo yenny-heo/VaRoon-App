@@ -30,20 +30,8 @@ const styles = StyleSheet.create({
         width: width,
         backgroundColor: '#f5f5f5',
         alignItems: 'center',
-        ...Platform.select({
-            ios: {
-                shadowColor: "rgb(50,50,50)",
-                shadowOpacity: 1,
-                shadowOffset:{
-                    height: 5,
-                    width: 0
-                }
-
-            },
-            android: {
-                elevation: 10
-            }
-        })
+        borderBottomWidth: 1,
+        borderBottomColor: '#c2c2c2'
     },
     logo: {
         width: 130,

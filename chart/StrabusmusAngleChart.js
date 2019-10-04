@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, Picker, Alert } from 'react-native';
+import { StyleSheet, View, Text, Picker} from 'react-native';
 import axios from 'axios';
 import { VictoryChart, VictoryTheme, VictoryScatter } from 'victory-native';
 
@@ -48,7 +48,7 @@ export default class StrabismusAngleChart extends React.Component {
     _renderEndDates = () => {//시작날짜 뒤의 5개의 날짜를 렌더링
         const { rawData, StartIndex } = this.state;
         if (StartIndex == '') return <Picker.Item label="끝 날짜" value=""></Picker.Item>
-        const dates = new Array();
+        const dates = [];
         for (var i = 0; i < 5; i++)
             dates[i] = <Picker.Item key={i} label={rawData[StartIndex - 1 + i].date} value={rawData[StartIndex - 1 + i].date} />
 
@@ -111,7 +111,7 @@ export default class StrabismusAngleChart extends React.Component {
                             <VictoryScatter
                                 style={{
                                     data: {
-                                        fill: "#5276F6",
+                                        fill: "#4b74ff",
                                         fillOpacity: ({ index }) => 1.0 - (index * 0.2)
                                     }
                                 }}
@@ -130,7 +130,7 @@ export default class StrabismusAngleChart extends React.Component {
                         <VictoryScatter
                             style={{
                                 data: {
-                                    fill: "#5276F6",
+                                    fill: "#4b74ff",
                                     fillOpacity: ({ index }) => 1.0 - (index * 0.2)
                                 }
                             }}

@@ -1,26 +1,190 @@
 import React from 'react';
-import {StyleSheet, View, Text} from 'react-native'
+import { StyleSheet, View, Text, Picker } from 'react-native'
+import axios from 'axios';
+import { VictoryChart, VictoryTheme, VictoryBar, VictoryLabel } from 'victory-native';
 
-export default class Focus extends React.Component{
-    render(){
-        return(
+
+export default class Focus extends React.Component {
+    state = {
+        StartDate: '',
+        EndDate: '',
+        StartIndex: '',
+        EndIndex: '',
+        leftData:[{x:5, y:50, label:'hi', label2:'fuck'}],
+        rightData:[{x:5, y:0}]
+
+    }
+
+    componentDidMount() {
+        this._getData();
+    }
+    _getData = async () => {
+        try {
+            const data = await axios({
+                method: 'get',
+                url: 'http://15.164.220.109/Api/MediBoard/FocusChart',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'X-AUTH-TOKEN': this.props.screenProps.data.token
+                }
+            })
+                .then(json => { return json.data })
+                .catch(err => { console.log("failed", err) });
+            this.setState({ rawData: data });
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    _renderStartDates = () => {
+        const dates = this.state.rawData.map((data, index) => {
+            return <Picker.Item key={index} label={data.date} value={data.date} />
+        })
+        return dates;
+    }
+
+    _renderEndDates = () => {//시작날짜 뒤의 4개의 날짜를 렌더링
+        const { rawData, StartIndex } = this.state;
+        if (StartIndex == '') return <Picker.Item key={-1} label="끝 날짜" value=""></Picker.Item>
+        const dates = [];
+        for (var i = 0; i < 4; i++)
+            dates[i] = <Picker.Item key={i} label={rawData[StartIndex - 1 + i].date} value={rawData[StartIndex - 1 + i].date} />
+
+        return dates;
+    }
+    _startValue = (itemValue, itemIndex) => {
+        if (itemIndex == 0) return;
+        this.setState({ StartDate: itemValue, StartIndex: itemIndex })
+        if (this.state.EndIndex == '') return;
+        const leftData = [];
+        const rightData = [];
+        for (var i = itemIndex - 1; i < itemIndex + this.state.EndIndex - 1; i++) {
+            const { date, leftFocus, leftPd, rightFocus, rightPd } = this.state.rawData[i];
+            leftData.push({
+                x:date,
+                y:leftFocus,
+                label:`(${Math.round(leftPd.horizontal)},${Math.round(leftPd.vertical)})`
+            });
+            rightData.push({
+                x:date,
+                y:rightFocus,
+                label:`(${Math.round(rightPd.horizontal)},${Math.round(rightPd.vertical)})`
+            });
+        }
+        this.setState({ leftData: leftData, rightData: rightData });
+    }
+
+    _endValue = (itemValue, itemIndex) => {
+        if (itemIndex == 0) return;
+        this.setState({ EndDate: itemValue, EndIndex: itemIndex })
+        if (this.state.StartIndex == '') return;
+        const leftData = [];
+        const rightData = [];
+        for (var i = this.state.StartIndex - 1; i < itemIndex + this.state.StartIndex - 1; i++) {
+            const { date, leftFocus, leftPd, rightFocus, rightPd } = this.state.rawData[i];
+            leftData.push({
+                x:date,
+                y:leftFocus,
+                label:`(${Math.round(leftPd.horizontal)},${Math.round(leftPd.vertical)})`
+            });
+            rightData.push({
+                x:date,
+                y:rightFocus,
+                label:`(${Math.round(rightPd.horizontal)},${Math.round(rightPd.vertical)})`
+            });
+        }
+        this.setState({ leftData: leftData, rightData: rightData });
+    }
+
+    render() {
+        return (
             <View style={styles.container}>
-                 <Text style={styles.chartTitle}> Focus </Text>
+                <Text style={styles.chartTitle}>
+                    <Text style={{ fontWeight: 'bold' }}>{this.props.screenProps.data.name}</Text>
+                    <Text>님의 집중도차트 </Text>
+                </Text>
+                <VictoryChart minDomain={{ x: 0.5 }}
+                    domain={{ y: [0, 100]}}
+                    height={300}
+                    width={398}
+                    theme={VictoryTheme.material}
+                    domainPadding={10}
+                >
+                    <VictoryBar
+                        data={this.state.leftData}
+                        style={{
+                            data: {fill: "#4b74ff"}
+                        }}
+                        barWidth= {30}
+                        alignment="start"
+                        labelComponent={<VictoryLabel textAnchor='start'></VictoryLabel>}
+                    />
+                    <VictoryBar
+                        data={this.state.rightData}
+                        style={{
+                            data: {fill: "#a5b9ff"}
+                        }}
+                        barWidth= {30}
+                        alignment="end"
+                        labelComponent={<VictoryLabel textAnchor='end'></VictoryLabel>}
+                    />
+                </VictoryChart>
+                <View style={styles.container4}>
+                    {this.state.rawData ?
+                        <View style={styles.container2}>
+                            <Picker style={styles.pickerStyle} itemStyle={styles.itemStyle}
+                                selectedValue={this.state.StartDate}
+                                onValueChange={(itemValue, itemIndex) => this._startValue(itemValue, itemIndex)}>
+                                <Picker.Item label='시작 날짜' value='' />
+                                {this._renderStartDates()}
+                            </Picker>
+                            <Text style={styles.dateText}>~</Text>
+                            <Picker style={styles.pickerStyle} itemStyle={styles.itemStyle}
+                                selectedValue={this.state.EndDate}
+                                onValueChange={(itemValue, itemIndex) => this._endValue(itemValue, itemIndex)}>
+                                <Picker.Item label='끝 날짜' value='' />
+                                {this._renderEndDates()}
+                            </Picker>
+                        </View>
+                        : <Text>Date Loading</Text>}
+                </View>
+
             </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    container:{
-        flex:1,
-        alignItems:'center'
+    container: {
+        flex: 1,
+        alignItems: 'center'
+    },
+    container2: {
+        flexDirection: 'row',
+    },
+    container4: {
+        width: '100%',
+        alignItems: 'center'
     },
     chartTitle: {
-        fontSize: 30,
-        color: "#2741a1",
-        fontWeight: "300",
-        marginTop: 30
+        fontSize: 25,
+        fontWeight: "200",
+        marginTop: 60,
     },
-    
+    dateText: {
+        marginTop: 10,
+        fontSize: 30,
+        color: "#a8a8a8",
+        fontWeight: '200'
+    },
+    pickerStyle: {
+        height: 60,
+        width: 150,
+        justifyContent: 'center',
+    },
+    itemStyle: {
+        height: 60,
+    }
+
 })
