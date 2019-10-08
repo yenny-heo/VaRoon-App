@@ -1,21 +1,24 @@
 import React from 'react';
+import { Image, StyleSheet } from 'react-native';
 import { createAppContainer, } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import EyemovementChart from './chart/EyemovementChart';
 import StrabismusAngleChart from './chart/StrabusmusAngleChart';
 import FocusChart from './chart/FocusChart';
-import { AntDesign } from '@expo/vector-icons'
 
 const TabNavigation = createBottomTabNavigator({
     EyeMovement: {
         screen: EyemovementChart,
         navigationOptions: {
             title: "안구운동",
-            tabBarIcon: ({tintColor}) => <AntDesign
-                name="areachart"
-                color= {tintColor}
-                size={35}
-            ></AntDesign>
+            tabBarIcon: ({focused}) => {
+                const image = focused 
+                ? require('./assets/chart1Active.png')
+                : require('./assets/chart1Inactive.png')
+                return <Image 
+                source={image}
+                style={styles.image1}></Image>
+            }
         }
 
     },
@@ -23,41 +26,61 @@ const TabNavigation = createBottomTabNavigator({
         screen: StrabismusAngleChart,
         navigationOptions: {
             title: "사시각",
-            tabBarIcon: ({tintColor}) => <AntDesign
-                name="dotchart"
-                color = {tintColor}
-                size={36}
-            ></AntDesign>
+            tabBarIcon: ({focused}) => {
+                const image = focused 
+                ? require('./assets/chart2Active.png')
+                : require('./assets/chart2Inactive.png')
+                return <Image 
+                source={image}
+                style={styles.image2}></Image>
+            }
         }
     },
     Focus: {
         screen: FocusChart,
         navigationOptions: {
             title: "집중도",
-            tabBarIcon: ({tintColor}) => <AntDesign
-                name="barschart"
-                color = {tintColor}
-                size={36}
-            ></AntDesign>
+            tabBarIcon: ({focused}) => {
+                const image = focused 
+                ? require('./assets/chart3Active.png')
+                : require('./assets/chart3Inactive.png')
+                return <Image 
+                source={image}
+                style={styles.image2}></Image>
+            }
         }
     },
 
 },
     {
         tabBarOptions: {
-            activeTintColor:'#2e2e2e',
-            inactiveTintColor:'#828282',
+            activeTintColor:'#4b74ff',
+            inactiveTintColor:'#a6a6a6',
             style:{
                 height: 80,
-                backgroundColor: "#f5f5f5"
+                backgroundColor: "#fcfcfc"
             },
             labelStyle:{
-                fontSize: 15,
-                marginTop: -20
+                fontSize: 13,
+                marginBottom: 25,
+                marginTop: -15
             }
         },
     }
 );
+
+const styles = StyleSheet.create({
+    image1: {
+        height: 20,
+        width: 23,
+        resizeMode: 'contain'
+    },
+    image2: {
+        height: 20,
+        width: 30,
+        resizeMode: 'contain'
+    },
+})
 
 export default createAppContainer(TabNavigation);
 

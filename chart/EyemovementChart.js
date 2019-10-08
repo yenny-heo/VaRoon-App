@@ -94,7 +94,8 @@ export default class EyemovementChart extends React.Component {
                     <View style={{ marginRight: -60 }}>
                         <VictoryChart polar
                             theme={VictoryTheme.material}
-                            width={240}>
+                            width={240}
+                            domain={{y: [0, 10]}}>
                             <VictoryPolarAxis dependentAxis
                                 style={{ axis: { stroke: "none" } }}
                                 tickFormat={() => null}
@@ -102,7 +103,7 @@ export default class EyemovementChart extends React.Component {
                             <VictoryPolarAxis />
                             <VictoryArea
                                 style={{
-                                    data: { fill: "#4b74ff", fillOpacity: 0.7, strokeWidth: 2 }
+                                    data: { fill: "#4b74ff", fillOpacity: 0.7, strokeWidth: 1 }
                                 }}
                                 data={[
                                     { x: '우', y: this.state.LRight },
@@ -120,7 +121,8 @@ export default class EyemovementChart extends React.Component {
                     </View>
                     <VictoryChart polar
                         theme={VictoryTheme.material}
-                        width={240}>
+                        width={240}
+                        domain={{y: [0, 10]}}>
                         <VictoryPolarAxis dependentAxis
                             style={{ axis: { stroke: "none" } }}
                             tickFormat={() => null}
@@ -128,7 +130,7 @@ export default class EyemovementChart extends React.Component {
                         <VictoryPolarAxis />
                         <VictoryArea
                             style={{
-                                data: { fill: "#4b74ff", fillOpacity: 0.7, strokeWidth: 2 },
+                                data: { fill: "#4b74ff", fillOpacity: 0.7, strokeWidth: 1 },
                             }}
                             data={[
                                 { x: '우', y: this.state.RRight },

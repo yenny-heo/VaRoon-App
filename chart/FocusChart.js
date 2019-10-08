@@ -1,16 +1,16 @@
 import React from 'react';
 import { StyleSheet, View, Text, Picker } from 'react-native'
 import axios from 'axios';
-import { VictoryChart, VictoryTheme, VictoryBar, VictoryLabel } from 'victory-native';
+import { VictoryChart, VictoryTheme, VictoryBar, VictoryLabel, VictoryAxis} from 'victory-native';
 
 
 export default class Focus extends React.Component {
-    state = {
+    state = { 
         StartDate: '',
         EndDate: '',
         StartIndex: '',
         EndIndex: '',
-        leftData:[{x:5, y:50, label:'hi', label2:'fuck'}],
+        leftData:[{x:5, y:0}],
         rightData:[{x:5, y:0}]
 
     }
@@ -29,7 +29,7 @@ export default class Focus extends React.Component {
                     'X-AUTH-TOKEN': this.props.screenProps.data.token
                 }
             })
-                .then(json => { return json.data })
+                .then(json => { return json.data.playLogList })
                 .catch(err => { console.log("failed", err) });
             this.setState({ rawData: data });
         } catch (err) {
@@ -107,18 +107,23 @@ export default class Focus extends React.Component {
                 <VictoryChart minDomain={{ x: 0.5 }}
                     domain={{ y: [0, 100]}}
                     height={300}
-                    width={398}
+                    width={382}
                     theme={VictoryTheme.material}
                     domainPadding={10}
                 >
+                     <VictoryAxis dependentAxis
+                    tickFormat={(tick) => `${tick}%`}
+                    />
+                    <VictoryAxis 
+                    />
                     <VictoryBar
                         data={this.state.leftData}
                         style={{
                             data: {fill: "#4b74ff"}
                         }}
                         barWidth= {30}
-                        alignment="start"
-                        labelComponent={<VictoryLabel textAnchor='start'></VictoryLabel>}
+                        alignment="end"
+                        labelComponent={<VictoryLabel textAnchor='end'></VictoryLabel>}
                     />
                     <VictoryBar
                         data={this.state.rightData}
@@ -126,10 +131,16 @@ export default class Focus extends React.Component {
                             data: {fill: "#a5b9ff"}
                         }}
                         barWidth= {30}
-                        alignment="end"
-                        labelComponent={<VictoryLabel textAnchor='end'></VictoryLabel>}
+                        alignment="start"
+                        labelComponent={<VictoryLabel textAnchor='start'></VictoryLabel>}
                     />
                 </VictoryChart>
+                <View style={[styles.container2, {marginTop: -20, marginBottom: 20}]}>
+                        <View style={styles.smallBox1}/>
+                        <Text style={{fontWeight: '200'}}>:좌안 </Text>
+                        <View style={styles.smallBox2}/>
+                        <Text style={{fontWeight: '200'}}>:우안 </Text>
+                </View>
                 <View style={styles.container4}>
                     {this.state.rawData ?
                         <View style={styles.container2}>
@@ -169,13 +180,25 @@ const styles = StyleSheet.create({
     },
     chartTitle: {
         fontSize: 25,
-        fontWeight: "200",
+        fontWeight: '200',
         marginTop: 60,
+    },
+    smallBox1: {
+        height: 12,
+        width: 12,
+        marginTop: 2,
+        backgroundColor: '#4b74ff'
+    },
+    smallBox2: {
+        height: 12,
+        width: 12,
+        marginTop: 2,
+        backgroundColor: '#a5b9ff'
     },
     dateText: {
         marginTop: 10,
         fontSize: 30,
-        color: "#a8a8a8",
+        color: '#a8a8a8',
         fontWeight: '200'
     },
     pickerStyle: {
