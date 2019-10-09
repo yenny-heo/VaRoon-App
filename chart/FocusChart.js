@@ -43,13 +43,13 @@ export default class Focus extends React.Component {
         return dates;
     }
 
-    _renderEndDates = () => {//시작날짜 뒤의 4개의 날짜를 렌더링
+    _renderEndDates = () => {//시작날짜 뒤의 4개의 날짜를 렌더링 (내림차순)
         const { rawData, StartIndex } = this.state;
         if (StartIndex == '') return <Picker.Item key={-1} label="끝 날짜" value=""></Picker.Item>
         const dates = [];
         for (var i = 0; i < 4; i++)
             if(StartIndex - 1 - i >= 0)
-                dates[i] = <Picker.Item key={i} label={rawData[StartIndex - 1 - i].date} value={rawData[StartIndex - 1 - i].date} />
+                dates[3 - i] = <Picker.Item key={3-i} label={rawData[StartIndex - 1 - i].date} value={rawData[StartIndex - 1 - i].date} />
 
         return dates;
     }
@@ -59,7 +59,8 @@ export default class Focus extends React.Component {
         if (this.state.EndIndex == '') return;
         const leftData = [];
         const rightData = [];
-        for (var i = itemIndex - 1; i < itemIndex + this.state.EndIndex - 1; i++) {
+        for (var i = itemIndex - 1; itemIndex >= 4  
+            ? i >= itemIndex - 1 - (4 - this.state.EndIndex) : i >= this.state.EndIndex - 1 ; i--) {
             const { date, leftFocus, leftPd, rightFocus, rightPd } = this.state.rawData[i];
             leftData.push({
                 x:date,
@@ -81,7 +82,8 @@ export default class Focus extends React.Component {
         if (this.state.StartIndex == '') return;
         const leftData = [];
         const rightData = [];
-        for (var i = this.state.StartIndex - 1; i < itemIndex + this.state.StartIndex - 1; i++) {
+        for (var i = this.state.StartIndex - 1; this.state.StartIndex >= 4  
+            ? i >= this.state.StartIndex - 1 - (4 - itemIndex) : i >= itemIndex - 1; i--) {
             const { date, leftFocus, leftPd, rightFocus, rightPd } = this.state.rawData[i];
             leftData.push({
                 x:date,

@@ -46,13 +46,13 @@ export default class StrabismusAngleChart extends React.Component {
         return dates;
     }
 
-    _renderEndDates = () => {//시작날짜 뒤의 5개의 날짜를 렌더링
+    _renderEndDates = () => {//시작날짜 뒤의 5개의 날짜를 렌더링 (내림차순)
         const { rawData, StartIndex } = this.state;
         if (StartIndex == '') return <Picker.Item label="끝 날짜" value=""></Picker.Item>
         const dates = [];
         for (var i = 0; i < 5; i++)
-            if(StartIndex - 1 - i >= 0)
-                dates[i] = <Picker.Item key={i} label={rawData[StartIndex - 1 - i].date} value={rawData[StartIndex - 1 - i].date} />
+            if (StartIndex - 1 - i >= 0)
+                dates[4 - i] = <Picker.Item key={4 - i} label={rawData[StartIndex - 1 - i].date} value={rawData[StartIndex - 1 - i].date} />
 
         return dates;
     }
@@ -63,16 +63,28 @@ export default class StrabismusAngleChart extends React.Component {
         if (this.state.EndIndex == '') return;
         const leftData = [];
         const rightData = [];
-        for (var i = itemIndex + this.state.EndIndex - 2; i >= itemIndex - 1; i--) {
-            leftData.push({
-                x: this.state.rawData[i].leftPD.horizontal,
-                y: this.state.rawData[i].leftPD.vertical
-            });
-            rightData.push({
-                x: this.state.rawData[i].rightPD.horizontal,
-                y: this.state.rawData[i].rightPD.vertical
-            });
-        }
+        if (itemIndex >= 5)
+            for (var i = itemIndex - 1 - (5 - this.state.EndIndex); i <= itemIndex - 1; i++) {
+                leftData.push({
+                    x: this.state.rawData[i].leftPD.horizontal,
+                    y: this.state.rawData[i].leftPD.vertical
+                });
+                rightData.push({
+                    x: this.state.rawData[i].rightPD.horizontal,
+                    y: this.state.rawData[i].rightPD.vertical
+                });
+            }
+        else
+            for (var i = this.state.EndIndex - 1; i <= itemIndex - 1; i++) {
+                leftData.push({
+                    x: this.state.rawData[i].leftPD.horizontal,
+                    y: this.state.rawData[i].leftPD.vertical
+                });
+                rightData.push({
+                    x: this.state.rawData[i].rightPD.horizontal,
+                    y: this.state.rawData[i].rightPD.vertical
+                });
+            }
         this.setState({ leftData: leftData, rightData: rightData });
 
 
@@ -83,16 +95,28 @@ export default class StrabismusAngleChart extends React.Component {
         if (this.state.StartIndex == '') return;
         const leftData = [];
         const rightData = [];
-        for (var i = itemIndex + this.state.StartIndex - 2; i >= this.state.StartIndex - 1; i--) {
-            leftData.push({
-                x: this.state.rawData[i].leftPD.horizontal,
-                y: this.state.rawData[i].leftPD.vertical
-            });
-            rightData.push({
-                x: this.state.rawData[i].rightPD.horizontal,
-                y: this.state.rawData[i].rightPD.vertical
-            });
-        }
+        if (this.state.StartIndex >= 5)
+            for (var i = this.state.StartIndex - 1 - (5 - itemIndex); i <= this.state.StartIndex - 1; i++) {
+                leftData.push({
+                    x: this.state.rawData[i].leftPD.horizontal,
+                    y: this.state.rawData[i].leftPD.vertical
+                });
+                rightData.push({
+                    x: this.state.rawData[i].rightPD.horizontal,
+                    y: this.state.rawData[i].rightPD.vertical
+                });
+            }
+        else
+            for (var i = itemIndex - 1; i <= this.state.StartIndex - 1; i++) {
+                leftData.push({
+                    x: this.state.rawData[i].leftPD.horizontal,
+                    y: this.state.rawData[i].leftPD.vertical
+                });
+                rightData.push({
+                    x: this.state.rawData[i].rightPD.horizontal,
+                    y: this.state.rawData[i].rightPD.vertical
+                });
+            }
         this.setState({ leftData: leftData, rightData: rightData });
     }
     render() {
@@ -103,15 +127,15 @@ export default class StrabismusAngleChart extends React.Component {
                     <Text>님의 사시각차트 </Text>
                 </Text>
 
-                <View style={[styles.container2, {marginBottom:-30, marginTop:30}]}>
-                    <Text >최근 </Text>
+                <View style={[styles.container2, { marginBottom: -30, marginTop: 30 }]}>
+                    <Text > 과거 </Text>
                     <LinearGradient
-                        colors={['#4b74ff', '#ffffff']}
+                        colors={['#ffffff', '#4b74ff']}
                         style={styles.chartTag}
                         start={{ x: 0, y: 1 }}
                         end={{ x: 1, y: 1 }}>
                     </LinearGradient>
-                    <Text > 과거</Text>
+                    <Text > 최근 </Text>
                 </View>
 
 
