@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Image, View, StatusBar, Dimensions, Platform } from 'react-native';
+import { StyleSheet, Image, View, StatusBar, Dimensions } from 'react-native';
 import TabNavigation from './TabNavigation';
 
 const {width} = Dimensions.get("window");

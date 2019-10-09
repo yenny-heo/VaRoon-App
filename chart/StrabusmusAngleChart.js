@@ -1,7 +1,8 @@
 import React from 'react';
-import { StyleSheet, View, Text, Picker} from 'react-native';
+import { StyleSheet, View, Text, Picker } from 'react-native';
 import axios from 'axios';
 import { VictoryChart, VictoryTheme, VictoryScatter } from 'victory-native';
+import { LinearGradient } from "expo-linear-gradient";
 
 export default class StrabismusAngleChart extends React.Component {
 
@@ -32,7 +33,7 @@ export default class StrabismusAngleChart extends React.Component {
             })
                 .then(json => { return json.data })
                 .catch(err => { console.log("failed", err) });
-            this.setState({ rawData: data });
+            this.setState({ rawData: data.slice(0).reverse() });
         } catch (err) {
             console.log(err);
         }
@@ -50,7 +51,8 @@ export default class StrabismusAngleChart extends React.Component {
         if (StartIndex == '') return <Picker.Item label="끝 날짜" value=""></Picker.Item>
         const dates = [];
         for (var i = 0; i < 5; i++)
-            dates[i] = <Picker.Item key={i} label={rawData[StartIndex - 1 + i].date} value={rawData[StartIndex - 1 + i].date} />
+            if(StartIndex - 1 - i >= 0)
+                dates[i] = <Picker.Item key={i} label={rawData[StartIndex - 1 - i].date} value={rawData[StartIndex - 1 - i].date} />
 
         return dates;
     }
@@ -79,8 +81,8 @@ export default class StrabismusAngleChart extends React.Component {
         if (itemIndex == 0) return;
         this.setState({ EndDate: itemValue, EndIndex: itemIndex })
         if (this.state.StartIndex == '') return;
-        const leftData = new Array();
-        const rightData = new Array();
+        const leftData = [];
+        const rightData = [];
         for (var i = itemIndex + this.state.StartIndex - 2; i >= this.state.StartIndex - 1; i--) {
             leftData.push({
                 x: this.state.rawData[i].leftPD.horizontal,
@@ -100,6 +102,20 @@ export default class StrabismusAngleChart extends React.Component {
                     <Text style={{ fontWeight: 'bold' }}>{this.props.screenProps.data.name}</Text>
                     <Text>님의 사시각차트 </Text>
                 </Text>
+
+                <View style={[styles.container2, {marginBottom:-30, marginTop:30}]}>
+                    <Text >최근 </Text>
+                    <LinearGradient
+                        colors={['#4b74ff', '#ffffff']}
+                        style={styles.chartTag}
+                        start={{ x: 0, y: 1 }}
+                        end={{ x: 1, y: 1 }}>
+                    </LinearGradient>
+                    <Text > 과거</Text>
+                </View>
+
+
+
                 <View style={styles.container2}>
                     <View style={{ marginRight: -80 }}>
                         <VictoryChart
@@ -144,6 +160,7 @@ export default class StrabismusAngleChart extends React.Component {
                     <Text style={styles.chartContents}> 우안 </Text>
                 </View>
 
+
                 <View style={styles.container4}>
                     {this.state.rawData ?
                         <View style={styles.container2}>
@@ -170,7 +187,8 @@ export default class StrabismusAngleChart extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     container2: {
         flexDirection: 'row',
@@ -186,8 +204,11 @@ const styles = StyleSheet.create({
     },
     chartTitle: {
         fontSize: 25,
-        fontWeight: "200",
-        marginTop: 60,
+        fontWeight: "200"
+    },
+    chartTag: {
+        width: 200,
+        height: 10,
     },
     chartContents: {
         fontSize: 20,

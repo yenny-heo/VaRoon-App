@@ -1,7 +1,20 @@
 import React from 'react';
-import { StyleSheet, Text, View, StatusBar, Image, TextInput, TouchableOpacity, Alert, Platform } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  StatusBar,
+  Image,
+  TextInput,
+  TouchableOpacity,
+  Alert,
+  Platform,
+  Dimensions
+} from 'react-native';
 import axios from 'axios';
 import Main from './Main.js';
+
+const { width, height } = Dimensions.get("window");
 
 var id, password;
 export default class extends React.Component {
@@ -39,7 +52,7 @@ export default class extends React.Component {
             onChangeText={text => password = text}
           ></TextInput>
           <TouchableOpacity style={styles.loginButton} onPressOut={this._loginAuth}>
-            <Text style={{ color: '#fff', fontWeight:'500', fontSize:19 }}>로그인</Text>
+            <Text style={{ color: '#fff', fontWeight: '500', fontSize: 19 }}>로그인</Text>
           </TouchableOpacity>
         </View>
     );
@@ -78,44 +91,30 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   halfContainer1: {
-    marginTop: 85,
+    marginTop: height * 0.108,
     alignItems: 'center',
     justifyContent: 'center'
   },
   logo: {
-    width: 140,
-    height: 100,
+    width: width * (2 / 5),
+    height: height * (1 / 8),
     resizeMode: 'contain'
 
   },
   id: {
     fontSize: 20,
-    marginTop: 40,
-    ...Platform.select({
-      ios: {
-        marginLeft: 54
-      },
-      android: {
-        marginLeft: 30
-      }
-  })
+    marginTop: height * 0.05,
+    marginLeft: width * 0.1
   },
   pw: {
     fontSize: 20,
-    marginTop: 24,
-    ...Platform.select({
-      ios: {
-        marginLeft: 54
-      },
-      android: {
-        marginLeft: 30
-      }
-  })
+    marginTop: height * 0.029,
+    marginLeft: width * 0.1
   },
   input: {
-    marginTop: 11,
-    height: 52,
-    width: 300,
+    marginTop: height * 0.013,
+    width: width * 0.8,
+    height: height * 0.061,
     paddingHorizontal: 10,
     borderWidth: 1,
     borderColor: "#e2e2e2",
@@ -124,27 +123,27 @@ const styles = StyleSheet.create({
     color: '#5276F6'
   },
   loginButton: {
-    marginTop: 50,
-    width: 300,
-    height: 55,
+    marginTop: height * 0.054,
+    width: width * 0.8,
+    height: height * 0.064,
     backgroundColor: '#4b74ff',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 3,
     ...Platform.select({
       ios: {
-          shadowColor: "rgba(75, 116, 255, 0.6)",
-          shadowOpacity: 1,
-          shadowOffset:{
-              width: 0,
-              height: 3
-          },
-          shadowRadius: 10,
+        shadowColor: "rgba(75, 116, 255, 0.6)",
+        shadowOpacity: 1,
+        shadowOffset: {
+          width: 0,
+          height: 3
+        },
+        shadowRadius: 10,
 
       },
       android: {
-          elevation: 10
+        elevation: 10
       }
-  })
+    })
   }
 });

@@ -43,7 +43,7 @@ export default class EyemovementChart extends React.Component {
             })
                 .then(json => { return json.data })
                 .catch(err => { console.log("failed", err) });
-            this.setState({ data: data });
+            this.setState({ data: data.slice(0).reverse() });//내림차순으로 저장
         } catch (err) {
             console.log(err);
         }
@@ -170,6 +170,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
+        justifyContent: 'center'
     },
     container2: {
         flexDirection: 'row',
@@ -186,8 +187,7 @@ const styles = StyleSheet.create({
     },
     chartTitle: {
         fontSize: 25,
-        fontWeight: "200",
-        marginTop: 60,
+        fontWeight: "200"
     },
     chartContents: {
         fontSize: 20,

@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, Picker } from 'react-native'
 import axios from 'axios';
-import { VictoryChart, VictoryTheme, VictoryBar, VictoryLabel, VictoryAxis} from 'victory-native';
+import { VictoryChart, VictoryTheme, VictoryBar, VictoryLabel, VictoryAxis } from 'victory-native';
 
 
 export default class Focus extends React.Component {
@@ -12,7 +12,6 @@ export default class Focus extends React.Component {
         EndIndex: '',
         leftData:[{x:5, y:0}],
         rightData:[{x:5, y:0}]
-
     }
 
     componentDidMount() {
@@ -31,7 +30,7 @@ export default class Focus extends React.Component {
             })
                 .then(json => { return json.data.playLogList })
                 .catch(err => { console.log("failed", err) });
-            this.setState({ rawData: data });
+            this.setState({ rawData: data.slice(0).reverse() });
         } catch (err) {
             console.log(err);
         }
@@ -49,7 +48,8 @@ export default class Focus extends React.Component {
         if (StartIndex == '') return <Picker.Item key={-1} label="끝 날짜" value=""></Picker.Item>
         const dates = [];
         for (var i = 0; i < 4; i++)
-            dates[i] = <Picker.Item key={i} label={rawData[StartIndex - 1 + i].date} value={rawData[StartIndex - 1 + i].date} />
+            if(StartIndex - 1 - i >= 0)
+                dates[i] = <Picker.Item key={i} label={rawData[StartIndex - 1 - i].date} value={rawData[StartIndex - 1 - i].date} />
 
         return dates;
     }
@@ -169,7 +169,8 @@ export default class Focus extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     container2: {
         flexDirection: 'row',
@@ -180,8 +181,7 @@ const styles = StyleSheet.create({
     },
     chartTitle: {
         fontSize: 25,
-        fontWeight: '200',
-        marginTop: 60,
+        fontWeight: '200'
     },
     smallBox1: {
         height: 12,
