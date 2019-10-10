@@ -48,14 +48,13 @@ export default class Focus extends React.Component {
         if (StartIndex == '') return <Picker.Item key={-1} label="끝 날짜" value=""></Picker.Item>
         const dates = [];
         for (var i = 0; i < 4; i++)
-            if(StartIndex - 1 - i >= 0)
-                dates[3 - i] = <Picker.Item key={3-i} label={rawData[StartIndex - 1 - i].date} value={rawData[StartIndex - 1 - i].date} />
-
+            if(StartIndex - 4 + i >= 0)
+                dates.push(<Picker.Item key={i} label={rawData[StartIndex - 4 + i].date} value={rawData[StartIndex - 4 + i].date} />);
         return dates;
     }
     _startValue = (itemValue, itemIndex) => {
         if (itemIndex == 0) return;
-        this.setState({ StartDate: itemValue, StartIndex: itemIndex })
+        this.setState({ StartDate: itemValue, StartIndex: itemIndex });
         if (this.state.EndIndex == '') return;
         const leftData = [];
         const rightData = [];
@@ -106,6 +105,12 @@ export default class Focus extends React.Component {
                     <Text style={{ fontWeight: 'bold' }}>{this.props.screenProps.data.name}</Text>
                     <Text>님의 집중도차트 </Text>
                 </Text>
+                <View style={[styles.container2, { marginTop: 20, marginBottom: -40 }]}>
+                        <View style={styles.smallBox1}/>
+                        <Text style={{fontWeight: '200'}}>:좌안 </Text>
+                        <View style={styles.smallBox2}/>
+                        <Text style={{fontWeight: '200'}}>:우안 </Text>
+                </View>
                 <VictoryChart minDomain={{ x: 0.5 }}
                     domain={{ y: [0, 100]}}
                     height={300}
@@ -137,12 +142,6 @@ export default class Focus extends React.Component {
                         labelComponent={<VictoryLabel textAnchor='start'></VictoryLabel>}
                     />
                 </VictoryChart>
-                <View style={[styles.container2, {marginTop: -20, marginBottom: 20}]}>
-                        <View style={styles.smallBox1}/>
-                        <Text style={{fontWeight: '200'}}>:좌안 </Text>
-                        <View style={styles.smallBox2}/>
-                        <Text style={{fontWeight: '200'}}>:우안 </Text>
-                </View>
                 <View style={styles.container4}>
                     {this.state.rawData ?
                         <View style={styles.container2}>

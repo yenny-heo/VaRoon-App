@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Picker } from 'react-native';
 import axios from 'axios';
-import { VictoryChart, VictoryTheme, VictoryPolarAxis, VictoryArea } from 'victory-native';
+import { VictoryChart, VictoryTheme, VictoryPolarAxis, VictoryArea, VictoryLine } from 'victory-native';
 
 export default class EyemovementChart extends React.Component {
 
@@ -90,17 +90,38 @@ export default class EyemovementChart extends React.Component {
                     <Text style={{ fontWeight: 'bold' }}>{this.props.screenProps.data.name}</Text>
                     <Text>님의 안구운동차트</Text>
                 </Text>
+                <View style={{flexDirection: 'row', marginTop: 20, marginBottom: -30}}>
+                        <View style={styles.smallBox1}/>
+                        <Text style={{fontWeight: '200'}}>:평균값 </Text>
+                        <View style={styles.smallBox2}/>
+                        <Text style={{fontWeight: '200'}}>:측정값 </Text>
+                </View>
                 <View style={styles.container2}>
                     <View style={{ marginRight: -60 }}>
                         <VictoryChart polar
                             theme={VictoryTheme.material}
                             width={240}
-                            domain={{y: [0, 10]}}>
+                            domain={{y: [0, 11]}}>
                             <VictoryPolarAxis dependentAxis
                                 style={{ axis: { stroke: "none" } }}
                                 tickFormat={() => null}
                             />
                             <VictoryPolarAxis />
+                            <VictoryLine
+                                style={{ 
+                                    data: { stroke: "#4b74ff", strokeWidth: 1 } 
+                                }}
+                                data={[
+                                    { x: '우', y: 9 },
+                                    { x: '우상', y: 10 },
+                                    { x: '상', y: 7 },
+                                    { x: '좌상', y: 6 },
+                                    { x: '좌', y: 6.5 },
+                                    { x: '좌하', y: 6 },
+                                    { x: '하', y: 8 },
+                                    { x: '우하', y: 9 },
+                                ]}
+                            />
                             <VictoryArea
                                 style={{
                                     data: { fill: "#4b74ff", fillOpacity: 0.7, strokeWidth: 1 }
@@ -122,12 +143,27 @@ export default class EyemovementChart extends React.Component {
                     <VictoryChart polar
                         theme={VictoryTheme.material}
                         width={240}
-                        domain={{y: [0, 10]}}>
+                        domain={{y: [0, 11]}}>
                         <VictoryPolarAxis dependentAxis
                             style={{ axis: { stroke: "none" } }}
                             tickFormat={() => null}
                         />
                         <VictoryPolarAxis />
+                        <VictoryLine
+                                style={{ 
+                                    data: { stroke: "#4b74ff", strokeWidth: 1 } 
+                                }}
+                                data={[
+                                    { x: '우', y: 8 },
+                                    { x: '우상', y: 7 },
+                                    { x: '상', y: 7 },
+                                    { x: '좌상', y: 8 },
+                                    { x: '좌', y: 9 },
+                                    { x: '좌하', y: 6 },
+                                    { x: '하', y: 7.5 },
+                                    { x: '우하', y: 10 },
+                                ]}
+                            />
                         <VictoryArea
                             style={{
                                 data: { fill: "#4b74ff", fillOpacity: 0.7, strokeWidth: 1 },
@@ -143,7 +179,6 @@ export default class EyemovementChart extends React.Component {
                                 { x: '우하', y: this.state.RRightDown },
                             ]}
                         />
-
                     </VictoryChart>
                 </View>
                 <View style={styles.container3}>
@@ -188,6 +223,23 @@ const styles = StyleSheet.create({
     chartTitle: {
         fontSize: 25,
         fontWeight: "200"
+    },
+    smallBox1: {
+        height: 12,
+        width: 12,
+        marginTop: 2,
+        borderWidth: 1,
+        borderColor: '#4b74ff',
+        borderRadius: 45
+    },
+    smallBox2: {
+        height: 12,
+        width: 12,
+        marginTop: 2,
+        backgroundColor: '#4b74ff80',
+        borderWidth: 1,
+        borderColor: '#4b74ff',
+        borderRadius: 45
     },
     chartContents: {
         fontSize: 20,

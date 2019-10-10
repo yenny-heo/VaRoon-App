@@ -51,8 +51,8 @@ export default class StrabismusAngleChart extends React.Component {
         if (StartIndex == '') return <Picker.Item label="끝 날짜" value=""></Picker.Item>
         const dates = [];
         for (var i = 0; i < 5; i++)
-            if (StartIndex - 1 - i >= 0)
-                dates[4 - i] = <Picker.Item key={4 - i} label={rawData[StartIndex - 1 - i].date} value={rawData[StartIndex - 1 - i].date} />
+            if (StartIndex - 5 + i >= 0)
+                dates.push(<Picker.Item key={i} label={rawData[StartIndex - 5 + i].date} value={rawData[StartIndex - 5 + i].date} />);
 
         return dates;
     }
@@ -127,7 +127,7 @@ export default class StrabismusAngleChart extends React.Component {
                     <Text>님의 사시각차트 </Text>
                 </Text>
 
-                <View style={[styles.container2, { marginBottom: -30, marginTop: 30 }]}>
+                <View style={[styles.container2, { marginBottom: -40, marginTop: 20 }]}>
                     <Text > 과거 </Text>
                     <LinearGradient
                         colors={['#ffffff', '#4b74ff']}
@@ -137,8 +137,6 @@ export default class StrabismusAngleChart extends React.Component {
                     </LinearGradient>
                     <Text > 최근 </Text>
                 </View>
-
-
 
                 <View style={styles.container2}>
                     <View style={{ marginRight: -80 }}>
