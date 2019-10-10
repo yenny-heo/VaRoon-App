@@ -101,7 +101,10 @@ export default class EyemovementChart extends React.Component {
                         <VictoryChart polar
                             theme={VictoryTheme.material}
                             width={240}
-                            domain={{y: [0, 11]}}>
+                            domain={{y: [0, 11]}}
+                            animate={{
+                                onLoad: { duration: 600 }
+                              }}>
                             <VictoryPolarAxis dependentAxis
                                 style={{ axis: { stroke: "none" } }}
                                 tickFormat={() => null}
@@ -143,7 +146,10 @@ export default class EyemovementChart extends React.Component {
                     <VictoryChart polar
                         theme={VictoryTheme.material}
                         width={240}
-                        domain={{y: [0, 11]}}>
+                        domain={{y: [0, 11]}}
+                        animate={{
+                            onLoad: { duration: 600 }
+                          }}>
                         <VictoryPolarAxis dependentAxis
                             style={{ axis: { stroke: "none" } }}
                             tickFormat={() => null}

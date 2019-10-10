@@ -155,6 +155,9 @@ export default class StrabismusAngleChart extends React.Component {
                                 }}
                                 size={7}
                                 data={this.state.leftData}
+                                animate={{
+                                    onLoad: { duration: 700 }
+                                  }}
                             />
 
                         </VictoryChart>
@@ -174,6 +177,9 @@ export default class StrabismusAngleChart extends React.Component {
                             }}
                             size={7}
                             data={this.state.rightData}
+                            animate={{
+                                onLoad: { duration: 700 }
+                              }}
                         />
                     </VictoryChart>
                 </View>
