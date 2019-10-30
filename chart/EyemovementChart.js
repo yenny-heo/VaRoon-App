@@ -41,7 +41,7 @@ export default class EyemovementChart extends React.Component {
                     'X-AUTH-TOKEN': this.props.screenProps.data.token
                 }
             })
-                .then(json => { return json.data })
+                .then(json => { return json.data; })
                 .catch(err => { console.log("failed", err) });
             this.setState({ data: data.slice(0).reverse() });//내림차순으로 저장
         } catch (err) {
@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
     },
     container3: {
         flexDirection: 'row',
-        marginTop: -70,
+        marginTop: -70
     },
     container4: {
         width: '100%',

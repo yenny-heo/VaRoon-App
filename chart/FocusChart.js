@@ -87,12 +87,12 @@ export default class Focus extends React.Component {
             leftData.push({
                 x:date,
                 y:leftFocus,
-                labelF:`(${Math.round(leftPd.horizontal)},${Math.round(leftPd.vertical)})`
+                z:`(${Math.round(leftPd.horizontal)},${Math.round(leftPd.vertical)})`
             });
             rightData.push({
                 x:date,
                 y:rightFocus,
-                labelF:`(${Math.round(rightPd.horizontal)},${Math.round(rightPd.vertical)})`
+                z:`(${Math.round(rightPd.horizontal)},${Math.round(rightPd.vertical)})`
             });
         }
         this.setState({ leftData: leftData, rightData: rightData });
@@ -134,7 +134,7 @@ export default class Focus extends React.Component {
                         barWidth= {30}
                         alignment="end"
                         labelComponent={<VictoryLabel textAnchor='end'></VictoryLabel>}
-                        labels={({datum}) => datum.labelF}
+                        labels={({datum}) => datum.z}
                     />
                     <VictoryBar
                         data={this.state.rightData}
@@ -144,7 +144,7 @@ export default class Focus extends React.Component {
                         barWidth= {30}
                         alignment="start"
                         labelComponent={<VictoryLabel textAnchor='start'></VictoryLabel>}
-                        labels={({datum}) => datum.labelF}
+                        labels={({datum}) => datum.z}
                     />
                 </VictoryChart>
                 <View style={styles.container4}>
@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     container2: {
-        flexDirection: 'row',
+        flexDirection: 'row'
     },
     container4: {
         width: '100%',

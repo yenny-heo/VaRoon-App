@@ -19,9 +19,7 @@ const { width, height } = Dimensions.get("window");
 var id, password;
 export default class extends React.Component {
   state = {
-    login: false,
-    token: '',
-    name: ''
+    login: false
   };
 
   render() {
@@ -79,7 +77,7 @@ export default class extends React.Component {
             this.setState({ login: true, data: json.data });
           }
         })
-        .catch(err => { Alert.alert("ID or Password does not match") });
+        .catch(err => {console.log(err); Alert.alert("ID or Password does not match") });
     }
   }
 }
