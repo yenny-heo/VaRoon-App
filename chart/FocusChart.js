@@ -5,13 +5,12 @@ import { VictoryChart, VictoryTheme, VictoryBar, VictoryLabel, VictoryAxis } fro
 
 
 export default class Focus extends React.Component {
-    state = { 
+    state = {
         StartDate: '',
         EndDate: '',
         StartIndex: '',
         EndIndex: '',
-        leftData:[{x:5, y:0}],
-        rightData:[{x:5, y:0}]
+        focusData: [{x:10, y:0}]
     }
 
     componentDidMount() {
@@ -56,46 +55,38 @@ export default class Focus extends React.Component {
         if (itemIndex == 0) return;
         this.setState({ StartDate: itemValue, StartIndex: itemIndex });
         if (this.state.EndIndex == '') return;
-        const leftData = [];
-        const rightData = [];
-        for (var i = itemIndex - 1; itemIndex >= 4  
+        const focusData = [];
+        for (var i = itemIndex - 1; itemIndex >= 4
             ? i >= itemIndex - 1 - (4 - this.state.EndIndex) : i >= this.state.EndIndex - 1 ; i--) {
-            const { date, leftFocus, leftPd, rightFocus, rightPd } = this.state.rawData[i];
-            leftData.push({
+            const { date, focus } = this.state.rawData[i];
+            focusData.push({
                 x:date,
-                y:leftFocus,
-                label:`(${Math.round(leftPd.horizontal)},${Math.round(leftPd.vertical)})`
-            });
-            rightData.push({
-                x:date,
-                y:rightFocus,
-                label:`(${Math.round(rightPd.horizontal)},${Math.round(rightPd.vertical)})`
+                y:focus
             });
         }
-        this.setState({ leftData: leftData, rightData: rightData });
+        this.setState({ focusData: focusData });
     }
 
     _endValue = (itemValue, itemIndex) => {
         if (itemIndex == 0) return;
         this.setState({ EndDate: itemValue, EndIndex: itemIndex })
         if (this.state.StartIndex == '') return;
-        const leftData = [];
-        const rightData = [];
-        for (var i = this.state.StartIndex - 1; this.state.StartIndex >= 4  
+        const focusData = [];
+        // const rightData = [];
+        for (var i = this.state.StartIndex - 1; this.state.StartIndex >= 4
             ? i >= this.state.StartIndex - 1 - (4 - itemIndex) : i >= itemIndex - 1; i--) {
-            const { date, leftFocus, leftPd, rightFocus, rightPd } = this.state.rawData[i];
-            leftData.push({
+            const { date, focus } = this.state.rawData[i];
+            focusData.push({
                 x:date,
-                y:leftFocus,
-                z:`(${Math.round(leftPd.horizontal)},${Math.round(leftPd.vertical)})`
+                y:focus
             });
-            rightData.push({
-                x:date,
-                y:rightFocus,
-                z:`(${Math.round(rightPd.horizontal)},${Math.round(rightPd.vertical)})`
-            });
+            // rightData.push({
+            //     x:date,
+            //     y:rightFocus,
+            //     z:`(${Math.round(rightPd.horizontal)},${Math.round(rightPd.vertical)})`
+            // });
         }
-        this.setState({ leftData: leftData, rightData: rightData });
+        this.setState({ focusData: focusData });
     }
 
     render() {
@@ -107,9 +98,7 @@ export default class Focus extends React.Component {
                 </Text>
                 <View style={[styles.container2, { marginTop: 20, marginBottom: -40 }]}>
                         <View style={styles.smallBox1}/>
-                        <Text style={{fontWeight: '200'}}>:좌안 </Text>
-                        <View style={styles.smallBox2}/>
-                        <Text style={{fontWeight: '200'}}>:우안 </Text>
+                        <Text style={{fontWeight: '200'}}>:집중도(%) </Text>
                 </View>
                 <VictoryChart minDomain={{ x: 0.5 }}
                     domain={{ y: [0, 100]}}
@@ -124,19 +113,18 @@ export default class Focus extends React.Component {
                      <VictoryAxis dependentAxis
                     tickFormat={(tick) => `${tick}%`}
                     />
-                    <VictoryAxis 
+                    <VictoryAxis
                     />
                     <VictoryBar
-                        data={this.state.leftData}
+                        data={this.state.focusData}
                         style={{
                             data: {fill: "#4b74ff"}
                         }}
                         barWidth= {30}
-                        alignment="end"
-                        labelComponent={<VictoryLabel textAnchor='end'></VictoryLabel>}
-                        labels={({datum}) => datum.z}
+                        labelComponent={<VictoryLabel></VictoryLabel>}
+                        labels={({datum}) => String(Math.round(datum.y))+"%"}
                     />
-                    <VictoryBar
+                    {/* <VictoryBar
                         data={this.state.rightData}
                         style={{
                             data: {fill: "#a5b9ff"}
@@ -145,7 +133,7 @@ export default class Focus extends React.Component {
                         alignment="start"
                         labelComponent={<VictoryLabel textAnchor='start'></VictoryLabel>}
                         labels={({datum}) => datum.z}
-                    />
+                    /> */}
                 </VictoryChart>
                 <View style={styles.container4}>
                     {this.state.rawData ?
