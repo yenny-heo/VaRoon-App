@@ -60,7 +60,7 @@ export default class Focus extends React.Component {
             ? i >= itemIndex - 1 - (4 - this.state.EndIndex) : i >= this.state.EndIndex - 1 ; i--) {
             const { date, focus } = this.state.rawData[i];
             focusData.push({
-                x:date,
+                x:date.substr(0,10),
                 y:focus
             });
         }
@@ -77,14 +77,9 @@ export default class Focus extends React.Component {
             ? i >= this.state.StartIndex - 1 - (4 - itemIndex) : i >= itemIndex - 1; i--) {
             const { date, focus } = this.state.rawData[i];
             focusData.push({
-                x:date,
+                x:date.substr(0,10),
                 y:focus
             });
-            // rightData.push({
-            //     x:date,
-            //     y:rightFocus,
-            //     z:`(${Math.round(rightPd.horizontal)},${Math.round(rightPd.vertical)})`
-            // });
         }
         this.setState({ focusData: focusData });
     }
@@ -124,16 +119,6 @@ export default class Focus extends React.Component {
                         labelComponent={<VictoryLabel></VictoryLabel>}
                         labels={({datum}) => String(Math.round(datum.y))+"%"}
                     />
-                    {/* <VictoryBar
-                        data={this.state.rightData}
-                        style={{
-                            data: {fill: "#a5b9ff"}
-                        }}
-                        barWidth= {30}
-                        alignment="start"
-                        labelComponent={<VictoryLabel textAnchor='start'></VictoryLabel>}
-                        labels={({datum}) => datum.z}
-                    /> */}
                 </VictoryChart>
                 <View style={styles.container4}>
                     {this.state.rawData ?

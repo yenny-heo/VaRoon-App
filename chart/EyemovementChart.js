@@ -101,7 +101,7 @@ export default class EyemovementChart extends React.Component {
                         <VictoryChart polar
                             theme={VictoryTheme.material}
                             width={240}
-                            domain={{y: [0, 11]}}
+                            domain={{y: [0, 60]}}
                             animate={{
                                 onLoad: { duration: 600 }
                               }}>
@@ -115,14 +115,14 @@ export default class EyemovementChart extends React.Component {
                                     data: { stroke: "#4b74ff", strokeWidth: 1 } 
                                 }}
                                 data={[
-                                    { x: '우', y: 9 },
-                                    { x: '우상', y: 10 },
-                                    { x: '상', y: 7 },
-                                    { x: '좌상', y: 6 },
-                                    { x: '좌', y: 6.5 },
-                                    { x: '좌하', y: 6 },
-                                    { x: '하', y: 8 },
-                                    { x: '우하', y: 9 },
+                                    { x: '우', y: 47.39 },
+                                    { x: '우상', y: 39.69 },
+                                    { x: '상', y: 31.8 },
+                                    { x: '좌상', y: 40.74 },
+                                    { x: '좌', y: 46.39 },
+                                    { x: '좌하', y: 49.23 },
+                                    { x: '하', y: 47.76 },
+                                    { x: '우하', y: 52.71 },
                                 ]}
                             />
                             <VictoryArea
@@ -146,7 +146,7 @@ export default class EyemovementChart extends React.Component {
                     <VictoryChart polar
                         theme={VictoryTheme.material}
                         width={240}
-                        domain={{y: [0, 11]}}
+                        domain={{y: [0, 60]}}
                         animate={{
                             onLoad: { duration: 600 }
                           }}>
@@ -160,14 +160,14 @@ export default class EyemovementChart extends React.Component {
                                     data: { stroke: "#4b74ff", strokeWidth: 1 } 
                                 }}
                                 data={[
-                                    { x: '우', y: 8 },
-                                    { x: '우상', y: 7 },
-                                    { x: '상', y: 7 },
-                                    { x: '좌상', y: 8 },
-                                    { x: '좌', y: 9 },
-                                    { x: '좌하', y: 6 },
-                                    { x: '하', y: 7.5 },
-                                    { x: '우하', y: 10 },
+                                    { x: '우', y: 47.39 },
+                                    { x: '우상', y: 39.69 },
+                                    { x: '상', y: 31.8 },
+                                    { x: '좌상', y: 40.74 },
+                                    { x: '좌', y: 46.39 },
+                                    { x: '좌하', y: 49.23 },
+                                    { x: '하', y: 47.76 },
+                                    { x: '우하', y: 52.71 },
                                 ]}
                             />
                         <VictoryArea
