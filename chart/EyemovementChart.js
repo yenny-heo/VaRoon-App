@@ -43,7 +43,7 @@ export default class EyemovementChart extends React.Component {
             })
                 .then(json => { return json.data; })
                 .catch(err => { console.log("failed", err) });
-            this.setState({ data: data.slice(0).reverse() });//내림차순으로 저장
+            this.setState({ data: data.slice(0).reverse(), firstData: data[0] });//내림차순으로 저장
         } catch (err) {
             console.log(err);
         }
@@ -92,7 +92,7 @@ export default class EyemovementChart extends React.Component {
                 </Text>
                 <View style={{flexDirection: 'row', marginTop: 20, marginBottom: -30}}>
                         <View style={styles.smallBox1}/>
-                        <Text style={{fontWeight: '200'}}>:평균값 </Text>
+                        <Text style={{fontWeight: '200'}}>:초기값 </Text>
                         <View style={styles.smallBox2}/>
                         <Text style={{fontWeight: '200'}}>:측정값 </Text>
                 </View>
@@ -110,21 +110,22 @@ export default class EyemovementChart extends React.Component {
                                 tickFormat={() => null}
                             />
                             <VictoryPolarAxis />
+                            {this.state.firstData ?
                             <VictoryLine
                                 style={{ 
                                     data: { stroke: "#4b74ff", strokeWidth: 1 } 
                                 }}
                                 data={[
-                                    { x: '우', y: 47.39 },
-                                    { x: '우상', y: 39.69 },
-                                    { x: '상', y: 31.8 },
-                                    { x: '좌상', y: 40.74 },
-                                    { x: '좌', y: 46.39 },
-                                    { x: '좌하', y: 49.23 },
-                                    { x: '하', y: 47.76 },
-                                    { x: '우하', y: 52.71 },
+                                    { x: '우', y: this.state.firstData.leftRange.right },
+                                    { x: '우상', y: this.state.firstData.leftRange.rightUp },
+                                    { x: '상', y: this.state.firstData.leftRange.up },
+                                    { x: '좌상', y: this.state.firstData.leftRange.leftUp },
+                                    { x: '좌', y: this.state.firstData.leftRange.left },
+                                    { x: '좌하', y: this.state.firstData.leftRange.leftDown },
+                                    { x: '하', y: this.state.firstData.leftRange.down },
+                                    { x: '우하', y: this.state.firstData.leftRange.rightDown },
                                 ]}
-                            />
+                            /> : null}
                             <VictoryArea
                                 style={{
                                     data: { fill: "#4b74ff", fillOpacity: 0.7, strokeWidth: 1 }
@@ -155,21 +156,22 @@ export default class EyemovementChart extends React.Component {
                             tickFormat={() => null}
                         />
                         <VictoryPolarAxis />
+                        {this.state.firstData ?
                         <VictoryLine
                                 style={{ 
                                     data: { stroke: "#4b74ff", strokeWidth: 1 } 
                                 }}
                                 data={[
-                                    { x: '우', y: 47.39 },
-                                    { x: '우상', y: 39.69 },
-                                    { x: '상', y: 31.8 },
-                                    { x: '좌상', y: 40.74 },
-                                    { x: '좌', y: 46.39 },
-                                    { x: '좌하', y: 49.23 },
-                                    { x: '하', y: 47.76 },
-                                    { x: '우하', y: 52.71 },
+                                    { x: '우', y: this.state.firstData.rightRange.right },
+                                    { x: '우상', y: this.state.firstData.rightRange.rightUp },
+                                    { x: '상', y: this.state.firstData.rightRange.up },
+                                    { x: '좌상', y: this.state.firstData.rightRange.leftUp },
+                                    { x: '좌', y: this.state.firstData.rightRange.left },
+                                    { x: '좌하', y: this.state.firstData.rightRange.leftDown },
+                                    { x: '하', y: this.state.firstData.rightRange.down },
+                                    { x: '우하', y: this.state.firstData.rightRange.rightDown },
                                 ]}
-                            />
+                            /> : null}
                         <VictoryArea
                             style={{
                                 data: { fill: "#4b74ff", fillOpacity: 0.7, strokeWidth: 1 },
