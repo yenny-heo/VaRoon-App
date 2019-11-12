@@ -60,7 +60,7 @@ export default class Focus extends React.Component {
             ? i >= itemIndex - 1 - (4 - this.state.EndIndex) : i >= this.state.EndIndex - 1 ; i--) {
             const { date, focus } = this.state.rawData[i];
             focusData.push({
-                x:date.substr(0,10),
+                x:date.substr(2,16),
                 y:focus
             });
         }
@@ -77,7 +77,7 @@ export default class Focus extends React.Component {
             ? i >= this.state.StartIndex - 1 - (4 - itemIndex) : i >= itemIndex - 1; i--) {
             const { date, focus } = this.state.rawData[i];
             focusData.push({
-                x:date.substr(0,10),
+                x:date.substr(2,16),
                 y:focus
             });
         }
@@ -109,6 +109,7 @@ export default class Focus extends React.Component {
                     tickFormat={(tick) => `${tick}%`}
                     />
                     <VictoryAxis
+                    style={{tickLabels: {fontSize: 10}}}
                     />
                     <VictoryBar
                         data={this.state.focusData}

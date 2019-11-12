@@ -144,7 +144,7 @@ export default class StrabismusAngleChart extends React.Component {
                             theme={VictoryTheme.material}
                             width={260}
                             height={260}
-                            domain={{ x: [-10, 10], y: [-10, 10] }}
+                            domain={{ x: [-20, 20], y: [-20, 20] }}
                         >
                             <VictoryScatter
                                 style={{
@@ -166,7 +166,7 @@ export default class StrabismusAngleChart extends React.Component {
                         theme={VictoryTheme.material}
                         width={260}
                         height={260}
-                        domain={{ x: [-10, 10], y: [-10, 10] }}
+                        domain={{ x: [-20, 20], y: [-20, 20] }}
                     >
                         <VictoryScatter
                             style={{
