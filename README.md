@@ -6,7 +6,7 @@ SW Maestro 10기 Tri_Catch 팀 **VaRoon** 프로젝트
 
 ## Getting Started
 
-### execute application using expo
+### execute application using simulator
 
 1. ```$ npm install expo-cli --global```
 
@@ -14,6 +14,11 @@ SW Maestro 10기 Tri_Catch 팀 **VaRoon** 프로젝트
 
 3. Run on iOS or Android Simulator
 
+### execute application using phone
+
+1. download expo app
+
+2. scan QR code in VaRoon App ( https://expo.io/@y3nny )
 
 
 ## Architecture
