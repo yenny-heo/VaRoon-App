@@ -13,7 +13,7 @@
     "expo": "^34.0.4",
     "immutability-helper": "^3.0.1",
     "jest-haste-map": "^24.9.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "mem": "^5.1.1",
     "react": "16.8.3",
     "react-dom": "^16.8.6",
